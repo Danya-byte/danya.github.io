@@ -127,6 +127,18 @@ def edit_user(user_id):
         flash('Доступ запрещен', 'danger')
         return redirect(url_for('index'))
 
+@app.route('/delete_user/<int:user_id>', methods=['POST'])
+def delete_user(user_id):
+    if 'username' in session and session['role'] == 'admin':
+        conn = get_db_connection()
+        conn.execute('DELETE FROM users WHERE id = ?', (user_id,))
+        conn.commit()
+        conn.close()
+        flash('Пользователь успешно удален', 'success')
+    else:
+        flash('Доступ запрещен', 'danger')
+    return redirect(url_for('admin'))
+
 
 if __name__ == '__main__':
     init_db()
