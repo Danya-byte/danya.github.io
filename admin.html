@@ -88,6 +88,8 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            text-decoration: none;
+            min-width: 100px; /* Добавлено для одинакового размера кнопок */
         }
 
         .btn-primary {
@@ -99,13 +101,13 @@
             background-color: #0056b3;
         }
 
-        .btn-secondary {
-            background-color: #6c757d;
+        .btn-danger {
+            background-color: #dc3545;
             color: #fff;
         }
 
-        .btn-secondary:hover {
-            background-color: #5a6268;
+        .btn-danger:hover {
+            background-color: #c82333;
         }
 
         .alert {
@@ -140,6 +142,9 @@
                     <li>
                         {{ user.username }} - {{ user.email }}
                         <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn btn-primary">Редактировать</a>
+                        <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </form>
                     </li>
                 {% endfor %}
             </ul>
